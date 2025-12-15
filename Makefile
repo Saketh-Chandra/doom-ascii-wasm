@@ -55,8 +55,7 @@ LDFLAGS += -s WASM=1 \
            -s ASSERTIONS=1 \
            -s NO_EXIT_RUNTIME=1 \
            -s ENVIRONMENT='node' \
-           --js-library $(SRCDIR)/wasm_bridge.js \
-           --preload-file $(SRCDIR)/../doom1.wad@doom1.wad
+           --js-library $(SRCDIR)/wasm_bridge.js
 else
 TARGET = doom-ascii
 CFLAGS += -DNORMALUNIX -DLINUX
