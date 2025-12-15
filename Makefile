@@ -40,6 +40,23 @@ else ifeq ($(PLATFORM),musl)
 TARGET = doom-ascii
 CC = musl-gcc
 CFLAGS += -DNORMALUNIX -DLINUX -static
+else ifeq ($(PLATFORM),wasm)
+TARGET = doom.js
+CC = emcc
+CFLAGS += -DNORMALUNIX -DLINUX
+LDFLAGS += -s WASM=1 \
+           -s ALLOW_MEMORY_GROWTH=1 \
+           -s ASYNCIFY=1 \
+           -s EXPORTED_FUNCTIONS='["_main","_DG_Init","_DG_DrawFrame","_WASM_QueueKey","_WASM_GetPlayerHealth","_WASM_GetPlayerArmor","_WASM_GetPlayerWeapon","_WASM_GetPlayerAmmo","_WASM_GetPlayerMaxAmmo","_WASM_GetCurrentWeaponAmmo","_WASM_GetPlayerHasKey","_WASM_GetPlayerKills","_WASM_GetPlayerItems","_WASM_GetPlayerSecrets"]' \
+           -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap","FS","UTF8ToString","callMain"]' \
+           -s MODULARIZE=1 \
+           -s EXPORT_NAME='DoomModule' \
+           -s TOTAL_MEMORY=67108864 \
+           -s ASSERTIONS=1 \
+           -s NO_EXIT_RUNTIME=1 \
+           -s ENVIRONMENT='node' \
+           --js-library $(SRCDIR)/wasm_bridge.js \
+           --preload-file $(SRCDIR)/../doom1.wad@doom1.wad
 else
 TARGET = doom-ascii
 CFLAGS += -DNORMALUNIX -DLINUX
@@ -76,7 +93,14 @@ SRC = i_main.c dummy.c am_map.c doomdef.c doomstat.c dstrings.c d_event.c d_item
 	p_user.c r_bsp.c r_data.c r_draw.c r_main.c r_plane.c r_segs.c r_sky.c r_things.c sha1.c \
 	sounds.c statdump.c st_lib.c st_stuff.c s_sound.c tables.c v_video.c wi_stuff.c \
 	w_checksum.c w_file.c w_main.c w_wad.c z_zone.c w_file_stdc.c i_input.c i_video.c \
-	doomgeneric.c doomgeneric_ascii.c
+	doomgeneric.c
+
+ifeq ($(PLATFORM),wasm)
+SRC += doomgeneric_wasm.c
+else
+SRC += doomgeneric_ascii.c
+endif
+
 OBJS = $(SRC:%.c=$(OBJDIR)/%.o)
 
 OBJSAPP = $(APPDIR)/usr/bin/$(TARGET) $(APPDIR)/AppRun $(APPDIR)/io.github.wojciech_graj.doom_ascii.desktop $(APPDIR)/io.github.wojciech_graj.doom_ascii.png $(APPDIR)/usr/share/metainfo/io.github.wojciech_graj.doom_ascii.appdata.xml

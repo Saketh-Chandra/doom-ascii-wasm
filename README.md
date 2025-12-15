@@ -50,7 +50,7 @@ Default keybindings are listed below.
 |RIGHT			|ARROW RIGHT	|
 |STRAFE LEFT	|,				|
 |STRAFE RIGHT	|.				|
-|FIRE			|SPACE			|
+|FIRE			|F  			|
 |USE			|E				|
 |SPEED			|]				|
 |WEAPON SELECT  |1-7            |
