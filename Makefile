@@ -47,7 +47,7 @@ CFLAGS += -DNORMALUNIX -DLINUX
 LDFLAGS += -s WASM=1 \
            -s ALLOW_MEMORY_GROWTH=1 \
            -s ASYNCIFY=1 \
-           -s EXPORTED_FUNCTIONS='["_main","_DG_Init","_DG_DrawFrame","_WASM_QueueKey","_WASM_GetPlayerHealth","_WASM_GetPlayerArmor","_WASM_GetPlayerWeapon","_WASM_GetPlayerAmmo","_WASM_GetPlayerMaxAmmo","_WASM_GetCurrentWeaponAmmo","_WASM_GetPlayerHasKey","_WASM_GetPlayerKills","_WASM_GetPlayerItems","_WASM_GetPlayerSecrets"]' \
+           -s EXPORTED_FUNCTIONS='["_main","_DG_Init","_DG_DrawFrame","_WASM_QueueKey","_WASM_GetPlayerHealth","_WASM_GetPlayerArmor","_WASM_GetPlayerWeapon","_WASM_GetPlayerAmmo","_WASM_GetPlayerMaxAmmo","_WASM_GetCurrentWeaponAmmo","_WASM_GetPlayerHasKey","_WASM_GetPlayerKills","_WASM_GetPlayerItems","_WASM_GetPlayerSecrets","_WASM_StopGameLoop"]' \
            -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap","FS","UTF8ToString","callMain"]' \
            -s MODULARIZE=1 \
            -s EXPORT_NAME='DoomModule' \

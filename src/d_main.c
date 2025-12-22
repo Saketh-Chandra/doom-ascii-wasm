@@ -89,6 +89,9 @@ void D_DoomLoop (void);
 
 char *          savegamedir;
 
+// Game loop control flag
+bool should_quit_loop = false;
+
 // location of IWAD and WAD files
 
 char *          iwadfile;
@@ -439,7 +442,7 @@ void D_DoomLoop (void)
         wipegamestate = gamestate;
     }
 
-    while (1)
+    while (!should_quit_loop)
     {
 		// frame syncronous IO operations
 		I_StartFrame ();
@@ -454,6 +457,9 @@ void D_DoomLoop (void)
 			D_Display ();
 		}
     }
+    
+    // Add cleanup message after loop
+    printf("Game loop exited cleanly\n");
 }
 
 

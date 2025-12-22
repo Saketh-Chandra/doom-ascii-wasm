@@ -267,3 +267,15 @@ int WASM_GetPlayerSecrets(void) {
     
     return players[consoleplayer].secretcount;
 }
+
+// ========== Game Loop Control ==========
+
+// External reference to loop control flag
+extern bool should_quit_loop;
+
+// Stop the game loop
+EMSCRIPTEN_KEEPALIVE
+void WASM_StopGameLoop(void) {
+    should_quit_loop = true;
+    JS_Log("Stop game loop requested");
+}
